@@ -1,7 +1,7 @@
 ---
 title: "Coursework Template"
 subtitle: 'MSc in Statistics 2025/26, Imperial College London'
-author: "ABC"
+author: "06059431 Nattanicha"
 format:
   html:
     toc: true
@@ -37,6 +37,7 @@ require(rmarkdown)
 require(knitr)
 require(kableExtra)
 # Put any library imports and other preamble here.
+library(ggplot2)
 ```
 
 This Rmarkdown document is intended to provide a basic template that you may use throughout the course, and to introduce you to basic functionality of the open-source bookdown R package for writing Rmarkdown documents [@xie2016bookdown].
@@ -173,4 +174,22 @@ Please keep in mind to format the code so that the entire code is clearly visibl
 ```{r ref.label=knitr::all_labels(), echo = T, eval = F}
 ```
 
+This table shows the first 6 rows of penguins dataset
+```{r}
+head(palmerpenguins::penguins)
+```
+
+
+
+
+
+```{r, echo =FALSE}
+data1 = palmerpenguins::penguins
+p = ggplot(data1, aes(x=flipper_length_mm, y=body_mass_g, shape=species, color=species)) + geom_point() + ggtitle("scatter plot of flipper length vs. body mass")
+p
+p = p + geom_point(aes(x = mean(data1$flipper_length_mm[data1$species=="Adelie"],na.rm=T), y = mean(data1$body_mass_g[data1$species=="Adelie"],na.rm=T)), color = "red", shape = 8, size = 4)
+p = p + geom_point(aes(x = mean(data1$flipper_length_mm[data1$species=="Chinstrap"],na.rm=T), y = mean(data1$body_mass_g[data1$species=="Chinstrap"],na.rm=T)), color = "green", shape = 8, size = 4)
+p = p + geom_point(aes(x = mean(data1$flipper_length_mm[data1$species=="Gentoo"],na.rm=T), y = mean(data1$body_mass_g[data1$species=="Gentoo"],na.rm=T)), color = "blue", shape = 8, size = 4)
+
+```
 # References
